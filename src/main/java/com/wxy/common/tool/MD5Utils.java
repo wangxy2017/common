@@ -2,6 +2,7 @@ package com.wxy.common.tool;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
 /**
  * @Author wangxy
@@ -34,6 +35,32 @@ public class MD5Utils {
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 盐值加密
+     *
+     * @param password
+     * @param salt
+     * @return
+     */
+    public static String MD5Encode(String password, String salt) {
+        return MD5Utils.MD5Encode(password + salt);
+    }
+
+    /**
+     * 生成指定长度的随机盐
+     *
+     * @param length
+     * @return
+     */
+    public static String getSalt(int length) {
+        char[] code = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            sb.append(code[new Random().nextInt(code.length)]);
         }
         return sb.toString();
     }
