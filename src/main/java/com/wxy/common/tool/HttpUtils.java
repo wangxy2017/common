@@ -26,15 +26,18 @@ import java.util.Map;
  * @Description http请求工具类
  **/
 public class HttpUtils {
+
+    private static final String CHARSET = "UTF-8";
+
     public static String get(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        return http("GET", url, params, null, headers, isHttps);
+        return http("GET", url, params, headers, isHttps);
     }
 
     public static String post(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        return http("POST", url, params, null, headers, isHttps);
+        return http("POST", url, params, headers, isHttps);
     }
 
-    public static String http(String method, String url, Map<String, Object> params, String paramsStr,
+    public static String http(String method, String url, Map<String, Object> params,
                               Map<String, String> headers, boolean isHttps) throws IOException {
         HttpClient httpClient;
         if (isHttps) {
@@ -44,30 +47,28 @@ public class HttpUtils {
         }
         if ("post".equalsIgnoreCase(method)) {
             HttpPost post = new HttpPost(url);
-            headers.forEach(post::setHeader);
+            if (headers != null) {
+                headers.forEach(post::setHeader);
+            }
             if (params != null) {
                 post.setEntity(new StringEntity(buildUrlParams(params)));
-            } else if (paramsStr != null) {
-                post.setEntity(new StringEntity(paramsStr, "utf-8"));
             }
-            return parseRes(httpClient.execute(post), "uft-8");
+            HttpResponse response = httpClient.execute(post);
+            return parseRes(response, CHARSET);
         } else {
             if (params != null) {
-                if (!url.contains("?")) {
-                    url += "?";
+                if (url.contains("?")) {
+                    url += "&" + buildUrlParams(params);
+                } else {
+                    url += "?" + buildUrlParams(params);
                 }
-                url += buildUrlParams(params);
-            } else if (paramsStr != null) {
-                if (!url.contains("?")) {
-                    url += "?";
-                }
-                url += paramsStr;
             }
             HttpGet get = new HttpGet(url);
             if (headers != null) {
                 headers.forEach(get::setHeader);
             }
-            return parseRes(httpClient.execute(get), "uft-8");
+            HttpResponse response = httpClient.execute(get);
+            return parseRes(response, CHARSET);
         }
     }
 
@@ -116,9 +117,9 @@ public class HttpUtils {
     private static String buildUrlParams(Map<String, Object> params) throws IOException {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Object> entry : params.entrySet()) {
-            sb.append(URLEncoder.encode(entry.getKey(), "utf-8"));
+            sb.append(URLEncoder.encode(entry.getKey(), CHARSET));
             sb.append("=");
-            sb.append(URLEncoder.encode(entry.getValue().toString(), "utf-8"));
+            sb.append(URLEncoder.encode(entry.getValue().toString(), CHARSET));
             sb.append("&");
         }
         sb.deleteCharAt(sb.length() - 1);
