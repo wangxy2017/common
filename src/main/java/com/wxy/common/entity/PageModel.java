@@ -6,8 +6,11 @@
  */
 package com.wxy.common.entity;
 
+import lombok.Data;
+
 import java.util.List;
 
+@Data
 public class PageModel<T> {
 
     /**
@@ -26,41 +29,4 @@ public class PageModel<T> {
      * 数据列表
      */
     private List<T> list;
-
-
-    public PageModel() {
-
-    }
-
-    public int getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
-    }
-
-    public List<T> getList() {
-        return list;
-    }
-
-    public void setList(List<T> list) {
-        this.list = list;
-    }
 }

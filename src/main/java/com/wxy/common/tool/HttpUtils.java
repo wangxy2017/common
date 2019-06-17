@@ -1,5 +1,6 @@
 package com.wxy.common.tool;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -11,6 +12,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -25,15 +28,42 @@ import java.util.Map;
  * @Date 2019/6/17 17:20
  * @Description http请求工具类
  **/
+@Slf4j
 public class HttpUtils {
 
-    private static final String CHARSET = "UTF-8";
+    private static final String CHARSET = "UTF-8";// 字符集
 
+    /**
+     * GET 请求
+     *
+     * @param url     请求地址
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param isHttps 是否 HTTPS请求
+     * @return
+     * @throws IOException
+     */
     public static String get(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
+        if (log.isDebugEnabled()) {
+            log.debug("请求地址：{}，请求参数：{}", url, params);
+        }
         return http("GET", url, params, headers, isHttps);
     }
 
+    /**
+     * POST 请求
+     *
+     * @param url     请求地址
+     * @param params  请求参数
+     * @param headers 请求头
+     * @param isHttps 是否 HTTPS请求
+     * @return
+     * @throws IOException
+     */
     public static String post(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
+        if (log.isDebugEnabled()) {
+            log.debug("请求地址：{}，请求参数：{}", url, params);
+        }
         return http("POST", url, params, headers, isHttps);
     }
 
@@ -124,5 +154,15 @@ public class HttpUtils {
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        String s = null;
+        try {
+            s = get("http://www.baidu.com", null, null, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(s);
     }
 }

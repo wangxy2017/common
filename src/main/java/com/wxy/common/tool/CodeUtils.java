@@ -3,7 +3,7 @@ package com.wxy.common.tool;
 /**
  * @Author wangxy
  * @Date 2019/6/17 11:55
- * @Description TODO
+ * @Description 验证码工具类
  **/
 public class CodeUtils {
     /**
