@@ -12,8 +12,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -154,15 +152,5 @@ public class HttpUtils {
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        String s = null;
-        try {
-            s = get("http://www.baidu.com", null, null, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println(s);
     }
 }
