@@ -42,9 +42,6 @@ public class HttpUtils {
      * @throws IOException
      */
     public static String get(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        if (log.isDebugEnabled()) {
-            log.debug("请求地址：{}，请求参数：{}", url, params);
-        }
         return http("GET", url, params, headers, isHttps);
     }
 
@@ -59,14 +56,14 @@ public class HttpUtils {
      * @throws IOException
      */
     public static String post(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        if (log.isDebugEnabled()) {
-            log.debug("请求地址：{}，请求参数：{}", url, params);
-        }
         return http("POST", url, params, headers, isHttps);
     }
 
     public static String http(String method, String url, Map<String, Object> params,
                               Map<String, String> headers, boolean isHttps) throws IOException {
+        if (log.isDebugEnabled()) {
+            log.debug("请求方式：{}，请求地址：{}，请求参数：{}，请求头：{}，https请求：{}", method, url, params, headers, isHttps);
+        }
         HttpClient httpClient;
         if (isHttps) {
             httpClient = createSSLClientDefault();
@@ -152,5 +149,10 @@ public class HttpUtils {
         }
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
+    }
+
+    public static void main(String[] args) throws IOException {
+        String result = get("http://www.baidu.com", null, null, false);
+        log.info(result);
     }
 }
