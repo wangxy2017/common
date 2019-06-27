@@ -1,5 +1,6 @@
 package com.wxy.common.tool;
 
+import com.wxy.common.entity.AutoValues;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class SerializeUtilsTest {
      */
     @Test
     public void TestSerialize() {
-        byte[] bytes = SerializeUtils.serialize(Arrays.asList("1", "2", "3"));
+        byte[] bytes = SerializeUtils.serialize(Arrays.asList(AutoValues.nextInt(), AutoValues.nextInt(), AutoValues.nextInt()));
         log.debug("序列化结果 = {}", bytes);
     }
 
@@ -26,7 +27,7 @@ public class SerializeUtilsTest {
      */
     @Test
     public void TestUnserialize() {
-        byte[] bytes = SerializeUtils.serialize(Arrays.asList("1", "2", "3"));
+        byte[] bytes = SerializeUtils.serialize(Arrays.asList(AutoValues.nextInt(), AutoValues.nextInt(), AutoValues.nextInt()));
         Object unserialize = SerializeUtils.unserialize(bytes);
         log.debug("反序列化结果 = {}", unserialize);
     }

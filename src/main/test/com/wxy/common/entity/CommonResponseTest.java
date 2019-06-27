@@ -3,8 +3,6 @@ package com.wxy.common.entity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.util.UUID;
-
 /**
  * @Author wxy
  * @Date 19-6-27 下午5:05
@@ -18,7 +16,7 @@ public class CommonResponseTest {
      */
     @Test
     public void TestInstance() {
-        CommonResponse response = new CommonResponse(0, "success", UUID.randomUUID().toString());
+        CommonResponse response = new CommonResponse(AutoValues.nextInt(), AutoValues.nextStr(), AutoValues.nextStr());
         log.debug("response = {}", response);
     }
 }

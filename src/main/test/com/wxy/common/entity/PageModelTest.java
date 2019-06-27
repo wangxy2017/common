@@ -19,10 +19,10 @@ public class PageModelTest {
     @Test
     public void TestInstance() {
         PageModel<Object> page = new PageModel<>();
-        page.setPageNum(1);
-        page.setPageSize(10);
-        page.setTotal(100);
-        page.setList(Arrays.asList("1", "2", "3"));
+        page.setPageNum(AutoValues.nextInt());
+        page.setPageSize(AutoValues.nextInt());
+        page.setTotal(AutoValues.nextInt());
+        page.setList(Arrays.asList(AutoValues.nextInt(), AutoValues.nextInt(), AutoValues.nextInt()));
         log.debug("page = {}", page);
     }
 }

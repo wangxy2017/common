@@ -1,9 +1,8 @@
 package com.wxy.common.tool;
 
+import com.wxy.common.entity.AutoValues;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-
-import java.util.UUID;
 
 /**
  * @Author wxy
@@ -18,8 +17,8 @@ public class HmacSha256UtilsTest {
      */
     @Test
     public void TestSha256Encrypt() {
-        String message = UUID.randomUUID().toString();
-        String key = UUID.randomUUID().toString();
+        String message = AutoValues.nextStr();
+        String key = AutoValues.nextStr();
         String encrypt = HmacSha256Utils.sha256Encrypt(message, key);
         log.debug("消息 = {}，密钥 = {}，加密结果 = {}", message, key, encrypt);
     }
