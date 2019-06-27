@@ -62,7 +62,7 @@ public class HttpUtils {
     public static String http(String method, String url, Map<String, Object> params,
                               Map<String, String> headers, boolean isHttps) throws IOException {
         if (log.isDebugEnabled()) {
-            log.debug("请求方式：{}，请求地址：{}，请求参数：{}，请求头：{}，https请求：{}", method, url, params, headers, isHttps);
+            log.debug("请求方式 = {}，请求地址 = {}，请求参数 = {}，请求头 = {}，https请求 = {}", method, url, params, headers, isHttps);
         }
         HttpClient httpClient;
         if (isHttps) {

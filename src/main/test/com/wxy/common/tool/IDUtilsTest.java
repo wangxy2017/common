@@ -16,7 +16,7 @@ public class IDUtilsTest {
      */
     @Test
     public void TestGetUUID() {
-        log.debug("获取UUID：{}", IDUtils.getUUID());
+        log.debug("获取UUID = {}", IDUtils.getUUID());
     }
 
     /**
@@ -24,6 +24,6 @@ public class IDUtilsTest {
      */
     @Test
     public void TestGenImageName() {
-        log.debug("获取图片名：{}", IDUtils.genImageName());
+        log.debug("获取图片名 = {}", IDUtils.genImageName());
     }
 }

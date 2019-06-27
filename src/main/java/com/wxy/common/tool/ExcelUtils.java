@@ -88,7 +88,7 @@ public class ExcelUtils {
             workbook.write(out);
             out.close();
         } else {// 写入本地
-            FileOutputStream outputStream = new FileOutputStream("/" + fileName);
+            FileOutputStream outputStream = new FileOutputStream(fileName);
             workbook.write(outputStream);
             outputStream.close();
         }

@@ -14,6 +14,8 @@ import javax.crypto.spec.DESedeKeySpec;
  * @Description 3DES 加密算法
  **/
 public class DESUtils {
+
+    private static final String CHARSET = "UTF-8";
     /**
      * 加密
      *
@@ -23,12 +25,12 @@ public class DESUtils {
      */
     public static String encrypt(String src, String key) {
         try {
-            DESedeKeySpec dks = new DESedeKeySpec(key.getBytes("UTF-8"));
+            DESedeKeySpec dks = new DESedeKeySpec(key.getBytes(CHARSET));
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DESede");
             SecretKey securekey = keyFactory.generateSecret(dks);
             Cipher cipher = Cipher.getInstance("DESede");
             cipher.init(Cipher.ENCRYPT_MODE, securekey);
-            byte[] b = cipher.doFinal(src.getBytes("UTF-8"));
+            byte[] b = cipher.doFinal(src.getBytes(CHARSET));
             BASE64Encoder encoder = new BASE64Encoder();
             return encoder.encode(b);
         } catch (Exception e) {
@@ -50,13 +52,13 @@ public class DESUtils {
             BASE64Decoder decoder = new BASE64Decoder();
             byte[] bytesrc = decoder.decodeBuffer(src);
             // --解密的 key
-            DESedeKeySpec dks = new DESedeKeySpec(key.getBytes("UTF-8"));
+            DESedeKeySpec dks = new DESedeKeySpec(key.getBytes(CHARSET));
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DESede");
             SecretKey securekey = keyFactory.generateSecret(dks);
             Cipher cipher = Cipher.getInstance("DESede");
             cipher.init(Cipher.DECRYPT_MODE, securekey);
             byte[] retByte = cipher.doFinal(bytesrc);
-            return new String(retByte, "UTF-8");
+            return new String(retByte, CHARSET);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

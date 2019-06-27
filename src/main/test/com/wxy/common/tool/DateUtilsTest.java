@@ -16,6 +16,6 @@ public class DateUtilsTest {
      */
     @Test
     public void TestUtcTime() {
-        log.debug("获取UTC时间：{}", DateUtils.utcTime());
+        log.debug("获取UTC时间 = {}", DateUtils.utcTime());
     }
 }
