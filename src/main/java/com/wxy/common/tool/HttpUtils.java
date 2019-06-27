@@ -150,9 +150,4 @@ public class HttpUtils {
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
-
-    public static void main(String[] args) throws IOException {
-        String result = get("http://www.baidu.com", null, null, false);
-        log.info(result);
-    }
 }
