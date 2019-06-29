@@ -1,16 +1,22 @@
 package com.wxy.common.entity;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
 /**
  * @Author wxy
  * @Date 19-6-27 下午7:20
- * @Description TODO
+ * @Description AutoValues
  **/
+@Slf4j
 public class AutoValues {
 
     private static final Random r = new Random();
+
+    private static final char[] SEQUENCES = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890".toCharArray();
 
     /**
      * 整型
@@ -18,7 +24,7 @@ public class AutoValues {
      * @return
      */
     public static int nextInt() {
-        return r.nextInt(Integer.MAX_VALUE);
+        return r.nextInt();
     }
 
     /**
@@ -46,5 +52,41 @@ public class AutoValues {
      */
     public static float nextFloat() {
         return r.nextFloat();
+    }
+
+    /**
+     * long
+     *
+     * @return
+     */
+    public static long nextLong() {
+        return r.nextLong();
+    }
+
+    /**
+     * date
+     *
+     * @return
+     */
+    public static Date nextDate() {
+        return new Date();
+    }
+
+    /**
+     * char
+     *
+     * @return
+     */
+    public static char nextChar() {
+        return SEQUENCES[r.nextInt(SEQUENCES.length)];
+    }
+
+    /**
+     * bool
+     *
+     * @return
+     */
+    public static boolean nextBool() {
+        return r.nextBoolean();
     }
 }
