@@ -22,14 +22,6 @@ public class CommonResponse {
      */
     private Object data;
 
-    public CommonResponse() {
-    }
-
-    public CommonResponse(Integer code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
     public CommonResponse(Integer code, String message, Object data) {
         this.code = code;
         this.message = message;
