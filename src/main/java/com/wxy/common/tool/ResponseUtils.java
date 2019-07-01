@@ -28,4 +28,8 @@ public class ResponseUtils {
     public static CommonResponse error(Integer code, String message) {
         return new CommonResponse(code, message, null);
     }
+
+    public static CommonResponse error(String message) {
+        return new CommonResponse(ERROR_CODE, message, null);
+    }
 }
