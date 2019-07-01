@@ -58,4 +58,8 @@ public class SerializeUtils {
         }
         return obj;
     }
+
+    public static <T> T unserialize(byte[] bytes, Class<T> clz) {
+        return clz.cast(unserialize(bytes));
+    }
 }
