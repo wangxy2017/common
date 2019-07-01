@@ -11,12 +11,17 @@ import org.junit.Test;
  **/
 @Slf4j
 public class AutoValuesTest {
+
+    private static long count = 10000l;
+
     /**
      * 整数
      */
     @Test
     public void TestNextInt() {
-        log.debug("随机整数 = {}", AutoValues.nextInt());
+        for (int i = 0; i <count ; i++) {
+            log.debug("随机整数 = {}", AutoValues.nextInt());
+        }
     }
 
     /**
@@ -24,7 +29,9 @@ public class AutoValuesTest {
      */
     @Test
     public void TestNextDouble() {
-        log.debug("随机小数 = {}", AutoValues.nextDouble());
+        for (int i = 0; i < count; i++) {
+            log.debug("随机小数 = {}", AutoValues.nextDouble());
+        }
     }
 
     /**
@@ -32,6 +39,28 @@ public class AutoValuesTest {
      */
     @Test
     public void TestNextStr() {
-        log.debug("随机字符串 = {}", AutoValues.nextStr());
+        for (int i = 0; i <count ; i++) {
+            log.debug("随机字符串 = {}", AutoValues.nextStr());
+        }
+    }
+
+    @Test
+    public void TestNextLong() {
+        for (int i = 0; i < count; i++) {
+            log.debug("random long = {}", AutoValues.nextLong());
+        }
+    }
+
+    @Test
+    public void TestNextChar() {
+        for (int i = 0; i < count; i++) {
+            log.debug("random char = {}", AutoValues.nextChar());
+        }
+    }
+    @Test
+    public void TestNextBool() {
+        for (int i = 0; i < count; i++) {
+            log.debug("random bool = {}", AutoValues.nextBool());
+        }
     }
 }
