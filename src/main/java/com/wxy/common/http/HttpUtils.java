@@ -1,6 +1,5 @@
-package com.wxy.common.tool;
+package com.wxy.common.http;
 
-import com.wxy.common.entity.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

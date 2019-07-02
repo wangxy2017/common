@@ -1,5 +1,6 @@
 package com.wxy.common.entity;
 
+import com.wxy.common.junit.AutoValues;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.wxy.common.entity;
+package com.wxy.common.junit;
 
 import lombok.extern.slf4j.Slf4j;
 

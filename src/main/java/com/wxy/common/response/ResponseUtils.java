@@ -1,6 +1,6 @@
-package com.wxy.common.tool;
+package com.wxy.common.response;
 
-import com.wxy.common.entity.CommonResponse;
+import com.wxy.common.response.CommonResponse;
 
 /**
  * @Author wxy

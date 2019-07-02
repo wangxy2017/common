@@ -1,4 +1,4 @@
-package com.wxy.common.tool;
+package com.wxy.common.io;
 
 import org.apache.poi.util.IOUtils;
 

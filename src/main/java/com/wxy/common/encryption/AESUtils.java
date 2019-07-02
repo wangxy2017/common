@@ -1,4 +1,4 @@
-package com.wxy.common.tool;
+package com.wxy.common.encryption;
 
 import org.apache.commons.codec.binary.Base64;
 

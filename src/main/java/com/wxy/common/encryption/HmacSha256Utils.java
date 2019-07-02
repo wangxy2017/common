@@ -1,4 +1,4 @@
-package com.wxy.common.tool;
+package com.wxy.common.encryption;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;

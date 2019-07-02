@@ -1,6 +1,7 @@
 package com.wxy.common.tool;
 
-import com.wxy.common.entity.AutoValues;
+import com.wxy.common.io.SerializeUtils;
+import com.wxy.common.junit.AutoValues;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

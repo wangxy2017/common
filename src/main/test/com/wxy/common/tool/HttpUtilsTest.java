@@ -1,5 +1,6 @@
 package com.wxy.common.tool;
 
+import com.wxy.common.http.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

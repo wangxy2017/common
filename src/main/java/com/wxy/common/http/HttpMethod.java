@@ -1,4 +1,4 @@
-package com.wxy.common.entity;
+package com.wxy.common.http;
 
 /**
  * @Author wxy
