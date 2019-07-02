@@ -1,5 +1,6 @@
 package com.wxy.common.tool;
 
+import com.wxy.common.entity.HttpMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -42,7 +43,7 @@ public class HttpUtils {
      * @throws IOException
      */
     public static String get(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        return http("GET", url, params, headers, isHttps);
+        return http(HttpMethod.GET, url, params, headers, isHttps);
     }
 
     /**
@@ -56,10 +57,10 @@ public class HttpUtils {
      * @throws IOException
      */
     public static String post(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        return http("POST", url, params, headers, isHttps);
+        return http(HttpMethod.POST, url, params, headers, isHttps);
     }
 
-    public static String http(String method, String url, Map<String, Object> params,
+    public static String http(HttpMethod method, String url, Map<String, Object> params,
                               Map<String, String> headers, boolean isHttps) throws IOException {
         if (log.isDebugEnabled()) {
             log.debug("请求方式 = {}，请求地址 = {}，请求参数 = {}，请求头 = {}，https请求 = {}", method, url, params, headers, isHttps);
@@ -70,7 +71,7 @@ public class HttpUtils {
         } else {
             httpClient = HttpClients.createDefault();
         }
-        if ("post".equalsIgnoreCase(method)) {
+        if (HttpMethod.POST.equals(method)) {
             HttpPost post = new HttpPost(url);
             if (headers != null) {
                 headers.forEach(post::setHeader);
