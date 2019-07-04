@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Author wxy
@@ -33,4 +34,11 @@ public class SerializeUtilsTest {
         log.debug("反序列化结果 = {}", unserialize);
     }
 
+    @Test
+    public void TestUnserialize1(){
+        List<Integer> integers = Arrays.asList(AutoValues.nextInt(), AutoValues.nextInt(), AutoValues.nextInt());
+        byte[] bytes = SerializeUtils.serialize(integers);
+        Object unserialize = SerializeUtils.unserialize(bytes,integers.getClass());
+        log.debug("反序列化结果 = {}", unserialize);
+    }
 }
