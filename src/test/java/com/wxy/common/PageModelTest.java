@@ -1,5 +1,6 @@
-package com.wxy.common.entity;
+package com.wxy.common;
 
+import com.wxy.common.entity.PageModel;
 import com.wxy.common.test.AutoValues;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

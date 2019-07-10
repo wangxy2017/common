@@ -1,4 +1,4 @@
-package com.wxy.common.tool;
+package com.wxy.common;
 
 import com.wxy.common.test.AutoValues;
 import lombok.extern.slf4j.Slf4j;

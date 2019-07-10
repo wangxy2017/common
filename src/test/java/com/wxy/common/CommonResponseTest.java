@@ -1,4 +1,4 @@
-package com.wxy.common.entity;
+package com.wxy.common;
 
 import com.wxy.common.test.AutoValues;
 import com.wxy.common.response.CommonResponse;
