@@ -1,7 +1,5 @@
 package com.wxy.common.response;
 
-import com.wxy.common.response.CommonResponse;
-
 /**
  * @Author wxy
  * @Date 19-6-30 上午9:31
