@@ -1,15 +1,15 @@
-/**
- * @Description: 分页模型(用一句话描述该文件做什么)
- * @author wangxy
- * @date 2019/1/29 10:40
- * @version V1.0
- */
 package com.wxy.common.entity;
 
 import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @Description: 分页模型(用一句话描述该文件做什么)
+ * @author wangxy
+ * @date 2019/1/29 10:40
+ * @version V1.0
+ */
 @Data
 public class PageModel<T> {
 

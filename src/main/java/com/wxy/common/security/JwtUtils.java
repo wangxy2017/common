@@ -1,4 +1,4 @@
-package com.wxy.common.tool;
+package com.wxy.common.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
