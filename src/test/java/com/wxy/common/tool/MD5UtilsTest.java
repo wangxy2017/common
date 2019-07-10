@@ -1,7 +1,7 @@
 package com.wxy.common.tool;
 
 import com.wxy.common.encryption.MD5Utils;
-import com.wxy.common.junit.AutoValues;
+import com.wxy.common.test.AutoValues;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
