@@ -20,8 +20,8 @@ public class CaptchaUtils {
      */
     public static Map<String, String> generate() {
         Map<String, String> data = new HashMap<>(2);
-        String randomCode = getRandomCode(4, null);
-        BufferedImage imageFromCode = getImageFromCode(randomCode, 100, 50, 3, true, Color.WHITE, Color.BLACK, null);
+        String randomCode = getRandomCode(4, "0oO1lIi");
+        BufferedImage imageFromCode = getImageFromCode(randomCode, 100, 50, 1, false, false, false, Color.WHITE, new Color(45, 120, 244), new Color(45, 120, 244));
         String base64 = toBase64(imageFromCode);
         data.put("code", randomCode);
         data.put("captcha", base64);
@@ -83,14 +83,14 @@ public class CaptchaUtils {
      * @param foreColor
      * @return
      */
-    private static BufferedImage getImageFromCode(String code, int width, int height, int interLine, boolean randomLocation, Color backColor, Color lineColor, Color foreColor) {
+    private static BufferedImage getImageFromCode(String code, int width, int height, int interLine, boolean randomLocation, boolean shear, boolean stars, Color backColor, Color lineColor, Color foreColor) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics g = image.getGraphics();
+        Random r = new Random();
         // 绘制背景
         g.setColor(backColor == null ? getRandomColor() : backColor);
         g.fillRect(0, 0, width, height);
         // 绘制干扰线
-        Random r = new Random();
         if (interLine > 0) {
             int x = r.nextInt(4), y = 0;
             int x1 = width - r.nextInt(4), y1 = 0;
@@ -103,7 +103,7 @@ public class CaptchaUtils {
         }
         // 写验证码
         int fsize = (int) (height * 0.8);//字体大小为图片高度的80%
-        int fx = 0;
+        int fx = 5;
         int fy = fsize;
         g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, fsize));
         for (int i = 0; i < code.length(); i++) {
@@ -113,16 +113,20 @@ public class CaptchaUtils {
             fx += (width / code.length()) * (Math.random() * 0.3 + 0.8); //依据宽度浮动
         }
         // 扭曲图片
-        shearX(g, width, height, backColor);
-        shearY(g, width, height, backColor);
+        if (shear) {
+            shearX(g, width, height, backColor);
+            shearY(g, width, height, backColor);
+        }
         // 添加噪点
-        float yawpRate = 0.05f;// 噪声率
-        int area = (int) (yawpRate * width * height);//噪点数量
-        for (int i = 0; i < area; i++) {
-            int xxx = r.nextInt(width);
-            int yyy = r.nextInt(height);
-            int rgb = getRandomColor().getRGB();
-            image.setRGB(xxx, yyy, rgb);
+        if (stars) {
+            float yawpRate = 0.05f;// 噪声率
+            int area = (int) (yawpRate * width * height);//噪点数量
+            for (int i = 0; i < area; i++) {
+                int xxx = r.nextInt(width);
+                int yyy = r.nextInt(height);
+                int rgb = getRandomColor().getRGB();
+                image.setRGB(xxx, yyy, rgb);
+            }
         }
         // 封笔
         g.dispose();
