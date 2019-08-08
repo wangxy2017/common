@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,16 +21,8 @@ public class HttpUtilsTest {
      */
     @Test
     public void TestGet() {
-        String url = "http://www.baidu.com";
-        Map<String, Object> params = null;
-        Map<String, String> headers = null;
-        String respone = null;
-        try {
-            respone = HttpUtils.get(url, params, headers, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        log.debug("请求结果 = {}", respone);
+        String get = HttpUtils.get("http://192.168.1.2:9010/list", new HashMap<>(), null, true);
+        log.info("响应结果：{}", get);
     }
 
     /**
@@ -37,15 +30,5 @@ public class HttpUtilsTest {
      */
     @Test
     public void TestGetHttps() {
-        String url = "https://www.baidu.com";
-        Map<String, Object> params = null;
-        Map<String, String> headers = null;
-        String respone = null;
-        try {
-            respone = HttpUtils.get(url, params, headers, true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        log.debug("请求结果 = {}", respone);
     }
 }

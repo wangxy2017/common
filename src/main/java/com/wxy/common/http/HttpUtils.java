@@ -1,7 +1,7 @@
 package com.wxy.common.http;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -41,8 +41,8 @@ public class HttpUtils {
      * @return
      * @throws IOException
      */
-    public static String get(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        return http(HttpMethod.GET, url, params, headers, isHttps);
+    public static String get(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) {
+        return http("GET", url, params, headers, isHttps);
     }
 
     /**
@@ -55,45 +55,52 @@ public class HttpUtils {
      * @return
      * @throws IOException
      */
-    public static String post(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) throws IOException {
-        return http(HttpMethod.POST, url, params, headers, isHttps);
+    public static String post(String url, Map<String, Object> params, Map<String, String> headers, boolean isHttps) {
+        return http("POST", url, params, headers, isHttps);
     }
 
-    public static String http(HttpMethod method, String url, Map<String, Object> params,
-                              Map<String, String> headers, boolean isHttps) throws IOException {
-        if (log.isDebugEnabled()) {
-            log.debug("请求方式 = {}，请求地址 = {}，请求参数 = {}，请求头 = {}，https请求 = {}", method, url, params, headers, isHttps);
-        }
-        HttpClient httpClient;
-        if (isHttps) {
-            httpClient = createSSLClientDefault();
-        } else {
-            httpClient = HttpClients.createDefault();
-        }
-        if (HttpMethod.POST.equals(method)) {
-            HttpPost post = new HttpPost(url);
-            if (headers != null) {
-                headers.forEach(post::setHeader);
+    public static String http(String method, String url, Map<String, Object> params,
+                              Map<String, String> headers, boolean isHttps) {
+        long start = System.currentTimeMillis();
+        try {
+            log.info("请求方式 = {},请求地址 = {},请求参数 = {},请求头信息 = {},https请求 = {}", method, url, JSONObject.toJSONString(params), JSONObject.toJSONString(headers), isHttps);
+            HttpClient httpClient;
+            if (isHttps) {
+                httpClient = createSSLClientDefault();
+            } else {
+                httpClient = HttpClients.createDefault();
             }
-            if (params != null) {
-                post.setEntity(new StringEntity(buildUrlParams(params)));
-            }
-            HttpResponse response = httpClient.execute(post);
-            return parseRes(response, CHARSET);
-        } else {
-            if (params != null) {
-                if (url.contains("?")) {
-                    url += "&" + buildUrlParams(params);
-                } else {
-                    url += "?" + buildUrlParams(params);
+            if ("POST".equals(method)) {
+                HttpPost post = new HttpPost(url);
+                if (headers != null) {
+                    headers.forEach(post::setHeader);
                 }
+                if (params != null) {
+                    post.setEntity(new StringEntity(buildUrlParams(params)));
+                }
+                HttpResponse response = httpClient.execute(post);
+                return parseRes(response, CHARSET);
             }
-            HttpGet get = new HttpGet(url);
-            if (headers != null) {
-                headers.forEach(get::setHeader);
+            if ("GET".equals(method)) {
+                if (params != null && params.size() > 0) {
+                    if (url.contains("?")) {
+                        url += "&" + buildUrlParams(params);
+                    } else {
+                        url += "?" + buildUrlParams(params);
+                    }
+                }
+                HttpGet get = new HttpGet(url);
+                if (headers != null && headers.size() > 0) {
+                    headers.forEach(get::setHeader);
+                }
+                HttpResponse response = httpClient.execute(get);
+                return parseRes(response, CHARSET);
             }
-            HttpResponse response = httpClient.execute(get);
-            return parseRes(response, CHARSET);
+            throw new RuntimeException("Unsupported request method");
+        } catch (IOException e) {
+            throw new RuntimeException("请求异常：" + url);
+        } finally {
+            log.info("请求耗时：{}", System.currentTimeMillis() - start + " ms");
         }
     }
 
@@ -106,13 +113,7 @@ public class HttpUtils {
      * @throws IOException
      */
     private static String parseRes(HttpResponse response, String charSet) throws IOException {
-        if (response != null) {
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                return EntityUtils.toString(entity, charSet);
-            }
-        }
-        return null;
+        return EntityUtils.toString(response.getEntity(), charSet);
     }
 
     /**
@@ -147,7 +148,6 @@ public class HttpUtils {
             sb.append(URLEncoder.encode(entry.getValue().toString(), CHARSET));
             sb.append("&");
         }
-        sb.deleteCharAt(sb.length() - 1);
-        return sb.toString();
+        return sb.deleteCharAt(sb.length() - 1).toString();
     }
 }
