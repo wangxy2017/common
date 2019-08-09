@@ -12,6 +12,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
 import java.io.IOException;
@@ -26,8 +28,9 @@ import java.util.Map;
  * @Date 2019/6/17 17:20
  * @Description http请求工具类
  **/
-@Slf4j
 public class HttpUtils {
+
+    private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
 
     private static final String CHARSET = "UTF-8";// 字符集
 
