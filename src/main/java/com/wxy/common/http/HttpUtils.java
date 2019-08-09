@@ -59,8 +59,8 @@ public class HttpUtils {
         return http("POST", url, params, headers, isHttps);
     }
 
-    public static String http(String method, String url, Map<String, Object> params,
-                              Map<String, String> headers, boolean isHttps) {
+    private static String http(String method, String url, Map<String, Object> params,
+                               Map<String, String> headers, boolean isHttps) {
         long start = System.currentTimeMillis();
         try {
             log.info("请求方式 = {},请求地址 = {},请求参数 = {},请求头信息 = {},https请求 = {}", method, url, JSONObject.toJSONString(params), JSONObject.toJSONString(headers), isHttps);
