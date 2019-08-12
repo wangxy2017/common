@@ -6,6 +6,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -78,7 +79,7 @@ public class HttpUtils {
                     headers.forEach(post::setHeader);
                 }
                 if (params != null) {
-                    post.setEntity(new StringEntity(buildUrlParams(params)));
+                    post.setEntity(new StringEntity(JSONObject.toJSONString(params), ContentType.APPLICATION_JSON));
                 }
                 HttpResponse response = httpClient.execute(post);
                 return parseRes(response, CHARSET);
