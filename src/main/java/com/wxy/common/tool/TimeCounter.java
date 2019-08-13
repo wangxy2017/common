@@ -12,7 +12,6 @@ public class TimeCounter {
      * 启动计时器
      */
     public static void start() {
-        start.remove();
         start.set(System.currentTimeMillis());
     }
 
