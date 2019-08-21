@@ -12,10 +12,10 @@ public class UrlUtils {
 
     public static String getUri(String url) {
         String u = url.split("//")[1];
-        return u.indexOf("/") > 0 ? u.substring(u.indexOf("/"), u.indexOf("?") > 0 ? u.indexOf("?" + 1) : u.length()) : "/";
+        return u.indexOf("/") > 0 ? u.substring(u.indexOf("/"), u.indexOf("?") > 0 ? u.indexOf("?") : u.length()) : "/";
     }
 
     public static String getQueryStr(String url) {
-        return url.indexOf("?") > 0 ? url.substring(url.indexOf("?") + 1) : null;
+        return url.indexOf("?") > 0 ? url.substring(url.indexOf("?") + 1) : "";
     }
 }
