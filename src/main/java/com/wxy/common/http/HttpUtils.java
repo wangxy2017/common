@@ -73,7 +73,7 @@ public class HttpUtils {
             } else {
                 httpClient = HttpClients.createDefault();
             }
-            if ("POST".equalsIgnoreCase(method)) {
+            if ("post".equalsIgnoreCase(method)) {
                 HttpPost post = new HttpPost(url);
                 if (headers != null) {
                     headers.forEach(post::setHeader);
@@ -84,7 +84,7 @@ public class HttpUtils {
                 HttpResponse response = httpClient.execute(post);
                 return parseRes(response, CHARSET);
             }
-            if ("GET".equalsIgnoreCase(method)) {
+            if ("get".equalsIgnoreCase(method)) {
                 if (params != null && params.size() > 0) {
                     if (url.contains("?")) {
                         url += "&" + buildUrlParams(params);
