@@ -39,8 +39,8 @@ public class EmailUtils {
         // 设置发件人邮箱地址
         message.setFrom(new InternetAddress("dujs_work@sina.com"));
         // 设置收件人邮箱地址
-        message.setRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress(path)});
-        //message.setRecipient(Message.RecipientType.TO, new InternetAddress("xxx@qq.com"));//一个收件人
+        message.setRecipient(Message.RecipientType.TO, new InternetAddress(path));
+        //message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(path));//多个收件人
         // 设置邮件标题
         message.setSubject(title);
         // 设置邮件内容
