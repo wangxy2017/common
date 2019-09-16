@@ -17,6 +17,6 @@ public class CodeUtilsTest {
      */
     @Test
     public void TestRandom() {
-        log.debug("获取随机字符串 = {}", CodeUtils.random(6));
+        log.debug("获取随机字符串 = {}", CodeUtils.randomCode(6));
     }
 }

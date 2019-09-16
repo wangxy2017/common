@@ -2,6 +2,7 @@ package com.wxy.common;
 
 import com.wxy.common.encryption.MD5Utils;
 import com.wxy.common.test.AutoValues;
+import com.wxy.common.tool.CodeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class MD5UtilsTest {
     @Test
     public void TestMD5Encode() {
         String password = AutoValues.nextStr();
-        log.debug("密码 = {}，MD5加密 = {}", password, MD5Utils.MD5Encode(password));
+        log.debug("密码 = {}，MD5加密 = {}", password, MD5Utils.encrypt(password));
     }
 
     /**
@@ -28,7 +29,7 @@ public class MD5UtilsTest {
     @Test
     public void TestEncodeBySalt() {
         String password = AutoValues.nextStr();
-        String salt = MD5Utils.getSalt(8);
-        log.debug("密码 = {}，盐值 = {}，MD5加密 = {}", password, salt, MD5Utils.MD5Encode(password, salt));
+        String salt = CodeUtils.randomStr(8);
+        log.debug("密码 = {}，盐值 = {}，MD5加密 = {}", password, salt, MD5Utils.encrypt(password, salt));
     }
 }
