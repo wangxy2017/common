@@ -56,7 +56,7 @@ public class OkHttpUtils {
             if (headers != null && !headers.isEmpty()) {
                 headers.forEach(builder::addHeader);
             }
-            Request request = builder.get().build();
+            Request request = builder.build();
             Response response = client.newCall(request).execute();
             return parseRes(response);
         } catch (IOException e) {
