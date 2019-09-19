@@ -1,11 +1,15 @@
 package com.wxy.common.http;
 
-import okhttp3.OkHttpClient;
+import com.alibaba.fastjson.JSONObject;
+import okhttp3.*;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
@@ -17,15 +21,56 @@ import java.util.concurrent.TimeUnit;
  * @Description TODO
  **/
 public class OkHttpUtils {
-    private final static int READ_TIMEOUT = 100;
-    private final static int CONNECT_TIMEOUT = 60;
-    private final static int WRITE_TIMEOUT = 60;
-    private static final String CHARSET = "UTF-8";// 字符集
+    private static final int READ_TIMEOUT = 100;
+    private static final int CONNECT_TIMEOUT = 60;
+    private static final int WRITE_TIMEOUT = 60;
+    private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public static void http(String method, String url, Map<String, Object> params,
-                            Map<String, String> headers, boolean isHttps) {
+
+    public static String getSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
+        try {
+            OkHttpClient client = createOKHttpClient(isHttps);
+            Request.Builder builder = new Request.Builder();
+            if (params != null && !params.isEmpty()) {
+                url += url.contains("?") ? "&" : "?";
+                url += buildUrlParams(params);
+            }
+            builder.url(url);
+            if (headers != null && !headers.isEmpty()) {
+                headers.forEach(builder::addHeader);
+            }
+            Request request = builder.get().build();
+            Response response = client.newCall(request).execute();
+            return parseRes(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("发送请求失败");
+        }
     }
 
+    public static String postSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
+        try {
+            OkHttpClient client = createOKHttpClient(isHttps);
+            Request.Builder builder = new Request.Builder();
+            builder.url(url).post(RequestBody.create(MEDIA_TYPE_JSON, JSONObject.toJSONString(params)));
+            if (headers != null && !headers.isEmpty()) {
+                headers.forEach(builder::addHeader);
+            }
+            Request request = builder.get().build();
+            Response response = client.newCall(request).execute();
+            return parseRes(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("发送请求失败");
+        }
+    }
+
+    /**
+     * 创建 OkHttpClient
+     *
+     * @param isHttps
+     * @return
+     */
     private static OkHttpClient createOKHttpClient(boolean isHttps) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.readTimeout(READ_TIMEOUT, TimeUnit.SECONDS);//读取超时
@@ -48,6 +93,11 @@ public class OkHttpUtils {
         return builder.build();
     }
 
+    /**
+     * 创建证书
+     *
+     * @return
+     */
     private static TrustManager[] buildTrustManagers() {
         return new TrustManager[]{
                 new X509TrustManager() {
@@ -67,4 +117,38 @@ public class OkHttpUtils {
         };
     }
 
+    /**
+     * map to urlEncode 参数
+     *
+     * @param params
+     * @return
+     * @throws IOException
+     */
+    private static String buildUrlParams(Map<String, Object> params) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            sb.append(URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8.name()));
+            sb.append("=");
+            sb.append(URLEncoder.encode(entry.getValue().toString(), StandardCharsets.UTF_8.name()));
+            sb.append("&");
+        }
+        return sb.deleteCharAt(sb.length() - 1).toString();
+    }
+
+    /**
+     * 解析响应结果
+     *
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    private static String parseRes(Response response) throws IOException {
+        if (!response.isSuccessful()) {
+            throw new IOException("服务器端错误: " + response);
+        }
+        if (response.body() != null) {
+            return response.body().string();
+        }
+        return null;
+    }
 }
