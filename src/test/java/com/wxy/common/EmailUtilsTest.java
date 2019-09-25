@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @Author wxy
@@ -16,7 +17,7 @@ import javax.mail.MessagingException;
 public class EmailUtilsTest {
 
     @Test
-    public void TestSend() throws MessagingException {
-        EmailUtils.sendEmail("243548880@qq.com", "测试", "测试");
+    public void TestSend() throws MessagingException, UnsupportedEncodingException {
+        EmailUtils.sendEmail("243548880@qq.com", "测试", "测试",null);
     }
 }
