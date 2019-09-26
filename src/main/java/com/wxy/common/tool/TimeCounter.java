@@ -12,7 +12,7 @@ public class TimeCounter {
      * 启动计时器
      */
     public static void start() {
-        start.set(System.currentTimeMillis());
+        start.set(System.nanoTime());
     }
 
     /**
@@ -20,11 +20,11 @@ public class TimeCounter {
      *
      * @return
      */
-    public static long counts() {
+    public static String counts() {
         if (start.get() == null) {
             throw new RuntimeException("请先启动计时方法:TimeCounter.start()");
         }
-        return System.currentTimeMillis() - start.get();
+        return String.format("%f.ms", (System.nanoTime() - start.get()) / 1e6d);
     }
 
     /**

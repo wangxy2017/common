@@ -13,14 +13,9 @@ import org.junit.Test;
 public class TimeCounterTest {
 
     @Test
-    public void test() throws InterruptedException {
+    public void test(){
         TimeCounter.start();
-        Thread.sleep(1000);
-        log.info("计时：{} ms", TimeCounter.counts());
-        Thread.sleep(1000);
-        log.info("计时：{} ms", TimeCounter.counts());
-        TimeCounter.clean();
-        Thread.sleep(1000);
-        log.info("计时：{} ms", TimeCounter.counts());
+        System.out.println("hello world");
+        log.info("计时：{}", TimeCounter.counts());
     }
 }
