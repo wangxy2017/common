@@ -73,8 +73,7 @@ public class ExcelUtils {
     public static void downloadExcel(String fileName, String sheetName,
                                      String[] title, String[][] values, HttpServletResponse response) throws IOException {
         // 创建 HSSFWorkbook
-        HSSFWorkbook workbook = new HSSFWorkbook();
-        buildExcel(workbook, sheetName, title, values);
+        HSSFWorkbook workbook = buildExcel(null, sheetName, title, values);
         if (response != null) {// 下载
             // 设置响应头
             response.setContentType("application/vnd.ms-excel;charset=utf-8");

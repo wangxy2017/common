@@ -30,6 +30,9 @@ public class DateUtils {
      * @return
      */
     public static String format(Date date, String pattern) {
+        if (date == null || pattern == null) {
+            return null;
+        }
         return new SimpleDateFormat(pattern).format(date);
     }
 
@@ -49,5 +52,19 @@ public class DateUtils {
      */
     public static String nowTime() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    /**
+     * 获取秒
+     *
+     * @param before
+     * @param after
+     * @return
+     */
+    public static long getSeconds(Date before, Date after) {
+        if (before == null || after == null) {
+            return 0;
+        }
+        return (after.getTime() - before.getTime()) / 1000;
     }
 }
