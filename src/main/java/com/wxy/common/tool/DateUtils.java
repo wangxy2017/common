@@ -11,6 +11,10 @@ import java.util.Date;
  * @Description 日期工具类
  **/
 public class DateUtils {
+
+    public static final String DATE_PATTERN = "yyyy-MM-dd";
+    public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
     /**
      * 获取标准 UTC 时间
      *
@@ -42,7 +46,7 @@ public class DateUtils {
      * @return
      */
     public static String nowDate() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 
     /**
@@ -51,7 +55,7 @@ public class DateUtils {
      * @return
      */
     public static String nowTime() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(TIME_PATTERN));
     }
 
     /**
@@ -66,5 +70,13 @@ public class DateUtils {
             return 0;
         }
         return (after.getTime() - before.getTime()) / 1000;
+    }
+
+    public static String nowTimeUTC() {
+        return LocalDateTime.now().minusHours(8).format(DateTimeFormatter.ofPattern(TIME_PATTERN));
+    }
+
+    public static String nowDateUTC() {
+        return LocalDateTime.now().minusHours(8).format(DateTimeFormatter.ofPattern(DATE_PATTERN));
     }
 }
