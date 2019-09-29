@@ -32,7 +32,7 @@ public class EmailUtils {
      * @throws MessagingException
      * @throws UnsupportedEncodingException
      */
-    public static void sendEmail(String path, String title, String content, String[] fileList) throws MessagingException, UnsupportedEncodingException {//path是指你要发给哪个邮箱号，title是指你的邮件的标题。msg是指你的邮件的内容。
+    public static void sendEmail(String path, String title, String content, String[] fileList,boolean isHtml) throws MessagingException, UnsupportedEncodingException {//path是指你要发给哪个邮箱号，title是指你的邮件的标题。msg是指你的邮件的内容。
 
         Properties properties = new Properties();
         properties.put("mail.transport.protocol", "smtp");// 连接协议，即：邮件协议
@@ -55,6 +55,8 @@ public class EmailUtils {
         // 设置邮件内容
         if (fileList != null) {
             message.setContent(addFiles(content, fileList));
+        } else if (isHtml) {
+            message.setContent(content, "text/html;charset=utf-8");
         } else {
             message.setText(content);
         }

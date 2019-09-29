@@ -18,6 +18,6 @@ public class EmailUtilsTest {
 
     @Test
     public void TestSend() throws MessagingException, UnsupportedEncodingException {
-        EmailUtils.sendEmail("243548880@qq.com", "测试", "测试",null);
+        EmailUtils.sendEmail("243548880@qq.com,wangxiaoyuan@pand-auto.com", "测试", "测试",null,false);
     }
 }
