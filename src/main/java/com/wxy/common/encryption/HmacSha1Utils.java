@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @Date 2017/8/18 11:48
  * @Modified
  */
-public class HmacSha1Util {
+public class HmacSha1Utils {
     private static final String MAC_NAME = "HmacSHA1";
     private static final String CHARSET = "UTF-8";
 
