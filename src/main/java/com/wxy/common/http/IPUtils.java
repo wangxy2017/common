@@ -22,7 +22,7 @@ public class IPUtils {
      * @param request
      * @return
      */
-    public static String getIp(HttpServletRequest request) {
+    public static String getRemoteIp(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
