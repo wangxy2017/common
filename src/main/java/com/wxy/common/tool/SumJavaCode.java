@@ -3,6 +3,7 @@ package com.wxy.common.tool;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.util.Objects;
 
 /**
  * @Author wxy
@@ -41,14 +42,13 @@ public class SumJavaCode {
      */
     private void treeFile(File f) {
         File[] childs = f.listFiles();
-        for (int i = 0; i < childs.length; i++) {
-            if (!childs[i].isDirectory()) {
-                if (childs[i].getName().matches(".*\\.java$")) {
-                    //System.out.println(childs[i].getName());
-                    sumCode(childs[i]);
+        for (File child : Objects.requireNonNull(childs)) {
+            if (!child.isDirectory()) {
+                if (".*\\.java$".matches(child.getName())) {
+                    sumCode(child);
                 }
             } else {
-                treeFile(childs[i]);
+                treeFile(child);
             }
         }
     }
@@ -68,12 +68,12 @@ public class SumJavaCode {
             try {
                 while ((line = br.readLine()) != null) {
                     line = line.trim();
-                    if (line.matches(" ^[\\s&&[^\\n]]*$")) {
+                    if ("^[\\s&&[^\\n]]*$".matches(line)) {
                         whiteLines++;// 空白行
                     } else if (line.startsWith("/*") && !line.endsWith("*/")) {
                         commentLines++;
                         comment = true;
-                    } else if (true == comment) {
+                    } else if (comment) {
                         commentLines++;
                         if (line.endsWith("*/")) {
                             comment = false;
