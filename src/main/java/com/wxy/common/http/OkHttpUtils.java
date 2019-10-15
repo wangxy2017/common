@@ -1,6 +1,5 @@
 package com.wxy.common.http;
 
-import com.alibaba.fastjson.JSONObject;
 import okhttp3.*;
 
 import javax.net.ssl.SSLContext;
@@ -27,6 +26,15 @@ public class OkHttpUtils {
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
 
+    /**
+     * 同步get请求
+     *
+     * @param url
+     * @param headers
+     * @param params
+     * @param isHttps
+     * @return
+     */
     public static String doGetSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
         try {
             OkHttpClient client = createOKHttpClient(isHttps);
@@ -48,11 +56,20 @@ public class OkHttpUtils {
         }
     }
 
-    public static String doPostSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
+    /**
+     * 同步post请求
+     *
+     * @param url
+     * @param headers
+     * @param body
+     * @param isHttps
+     * @return
+     */
+    public static String doPostSync(String url, Map<String, String> headers, String body, boolean isHttps) {
         try {
             OkHttpClient client = createOKHttpClient(isHttps);
             Request.Builder builder = new Request.Builder();
-            builder.url(url).post(RequestBody.create(MEDIA_TYPE_JSON, JSONObject.toJSONString(params)));
+            builder.url(url).post(RequestBody.create(MEDIA_TYPE_JSON, body));
             if (headers != null && !headers.isEmpty()) {
                 headers.forEach(builder::addHeader);
             }
