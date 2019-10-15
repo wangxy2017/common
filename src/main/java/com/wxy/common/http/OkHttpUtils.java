@@ -160,12 +160,13 @@ public class OkHttpUtils {
      * @throws IOException
      */
     private static String parseRes(Response response) throws IOException {
+        String result = "";
         if (!response.isSuccessful()) {
             throw new IOException("服务器端错误: " + response);
         }
         if (response.body() != null) {
-            return response.body().string();
+            result = response.body().string();
         }
-        return null;
+        return result;
     }
 }
