@@ -27,7 +27,7 @@ public class OkHttpUtils {
     private static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf-8");
 
 
-    public static String getSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
+    public static String doGetSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
         try {
             OkHttpClient client = createOKHttpClient(isHttps);
             Request.Builder builder = new Request.Builder();
@@ -48,7 +48,7 @@ public class OkHttpUtils {
         }
     }
 
-    public static String postSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
+    public static String doPostSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
         try {
             OkHttpClient client = createOKHttpClient(isHttps);
             Request.Builder builder = new Request.Builder();
