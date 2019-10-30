@@ -13,9 +13,9 @@ import org.junit.Test;
 public class TimeCounterTest {
 
     @Test
-    public void test(){
+    public void test() throws InterruptedException {
         TimeCounter.start();
-        System.out.println("hello world");
+        Thread.sleep(300);
         log.info("计时：{}", TimeCounter.counts());
     }
 }

@@ -6,13 +6,14 @@ package com.wxy.common.tool;
  * @Description 计时器
  **/
 public class TimeCounter {
-    private static ThreadLocal<Long> start = new ThreadLocal<>();
+
+    private static ThreadLocal<Long> timeLocal = new ThreadLocal<>();
 
     /**
      * 启动计时器
      */
     public static void start() {
-        start.set(System.nanoTime());
+        timeLocal.set(System.nanoTime());
     }
 
     /**
@@ -20,17 +21,24 @@ public class TimeCounter {
      *
      * @return
      */
-    public static String counts() {
-        if (start.get() == null) {
+    public static double counts() {
+        if (timeLocal.get() == null) {
             throw new RuntimeException("请先启动计时方法:TimeCounter.start()");
         }
-        return String.format("%f.ms", (System.nanoTime() - start.get()) / 1e6d);
+        return (System.nanoTime() - timeLocal.get()) / 1e6d;
+    }
+
+    /**
+     * 停止
+     */
+    public static void stop() {
+        timeLocal.remove();
     }
 
     /**
      * 清除计时
      */
     public static void clean() {
-        start();
+        timeLocal.set(System.nanoTime());
     }
 }
