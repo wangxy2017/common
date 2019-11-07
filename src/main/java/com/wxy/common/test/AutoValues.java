@@ -14,7 +14,7 @@ import java.util.UUID;
 @Slf4j
 public class AutoValues {
 
-    private static final Random r = new Random();
+    private static final Random R = new Random();
 
     private static final char[] SEQUENCES = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890".toCharArray();
 
@@ -24,7 +24,7 @@ public class AutoValues {
      * @return
      */
     public static int nextInt() {
-        return r.nextInt();
+        return R.nextInt();
     }
 
     /**
@@ -42,7 +42,7 @@ public class AutoValues {
      * @return
      */
     public static double nextDouble() {
-        return r.nextDouble();
+        return R.nextDouble();
     }
 
     /**
@@ -51,7 +51,7 @@ public class AutoValues {
      * @return
      */
     public static float nextFloat() {
-        return r.nextFloat();
+        return R.nextFloat();
     }
 
     /**
@@ -60,7 +60,7 @@ public class AutoValues {
      * @return
      */
     public static long nextLong() {
-        return r.nextLong();
+        return R.nextLong();
     }
 
     /**
@@ -78,7 +78,7 @@ public class AutoValues {
      * @return
      */
     public static char nextChar() {
-        return SEQUENCES[r.nextInt(SEQUENCES.length)];
+        return SEQUENCES[R.nextInt(SEQUENCES.length)];
     }
 
     /**
@@ -87,6 +87,6 @@ public class AutoValues {
      * @return
      */
     public static boolean nextBool() {
-        return r.nextBoolean();
+        return R.nextBoolean();
     }
 }
