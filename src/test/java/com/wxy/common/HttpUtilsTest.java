@@ -21,7 +21,7 @@ public class HttpUtilsTest {
      */
     @Test
     public void TestGet() {
-        String get = HttpUtils.get("http://192.168.1.2:9010/list", new HashMap<>(), null, true);
+        String get = HttpUtils.doGet("http://192.168.1.2:9010/list", null, true);
         log.info("响应结果：{}", get);
     }
 
