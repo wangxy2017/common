@@ -32,6 +32,6 @@ public class UrlUtilsTest {
 //        String url = "https://www.baidu.com?";
 //        String url = "https://www.baidu.com?name=aaa&age=11";
         String url = "https://www.baidu.com/test";
-        log.info("queryStr = {}", UrlUtils.getQueryStr(url));
+        log.info("queryStr = {}", UrlUtils.getQueryString(url));
     }
 }

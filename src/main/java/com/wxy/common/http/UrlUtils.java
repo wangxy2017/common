@@ -16,7 +16,7 @@ public class UrlUtils {
         return u.indexOf("/") > 0 ? u.substring(u.indexOf("/"), u.indexOf("?") > 0 ? u.indexOf("?") : u.length()) : "/";
     }
 
-    public static String getQueryStr(String url) {
+    public static String getQueryString(String url) {
         return url.indexOf("?") > 0 ? url.substring(url.indexOf("?") + 1) : "";
     }
 }
