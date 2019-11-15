@@ -1,6 +1,8 @@
 package com.wxy.common.http;
 
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+import org.apache.commons.collections4.MapUtils;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -17,9 +19,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * @Author wxy
  * @Date 19-9-18 下午1:50
- * @Description TODO
+ * @Description TODO OkHttp 工具类
  **/
+@Slf4j
 public class OkHttpUtils {
+
     private static final int READ_TIMEOUT = 100;
     private static final int CONNECT_TIMEOUT = 60;
     private static final int WRITE_TIMEOUT = 60;
@@ -36,15 +40,16 @@ public class OkHttpUtils {
      * @return
      */
     public static String doGetSync(String url, Map<String, String> headers, Map<String, Object> params, boolean isHttps) {
+        log.info("请求地址：{},请求参数：{},请求头：{},https：{}", url, params, headers, isHttps);
         try {
             OkHttpClient client = createOKHttpClient(isHttps);
             Request.Builder builder = new Request.Builder();
-            if (params != null && !params.isEmpty()) {
+            if (!MapUtils.isEmpty(params)) {
                 url += url.contains("?") ? "&" : "?";
                 url += buildUrlParams(params);
             }
             builder.url(url);
-            if (headers != null && !headers.isEmpty()) {
+            if (!MapUtils.isEmpty(headers)) {
                 headers.forEach(builder::addHeader);
             }
             Request request = builder.get().build();
@@ -66,11 +71,12 @@ public class OkHttpUtils {
      * @return
      */
     public static String doPostSync(String url, Map<String, String> headers, String body, boolean isHttps) {
+        log.info("请求地址：{},body参数：{},请求头：{},https：{}", url, body, headers, isHttps);
         try {
             OkHttpClient client = createOKHttpClient(isHttps);
             Request.Builder builder = new Request.Builder();
             builder.url(url).post(RequestBody.create(MEDIA_TYPE_JSON, body));
-            if (headers != null && !headers.isEmpty()) {
+            if (!MapUtils.isEmpty(headers)) {
                 headers.forEach(builder::addHeader);
             }
             Request request = builder.build();
