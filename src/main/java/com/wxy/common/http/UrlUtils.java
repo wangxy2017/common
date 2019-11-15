@@ -3,9 +3,10 @@ package com.wxy.common.http;
 /**
  * @Author wxy
  * @Date 19-8-12 上午10:36
- * @Description TODO
+ * @Description TODO Url处理工具
  **/
 public class UrlUtils {
+
     public static String getHost(String url) {
         return url.split("//")[1].split("/")[0];
     }
