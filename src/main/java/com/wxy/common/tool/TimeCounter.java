@@ -7,13 +7,20 @@ package com.wxy.common.tool;
  **/
 public class TimeCounter {
 
-    private static ThreadLocal<Long> timeLocal = new ThreadLocal<>();
+    private Long time;// 开始时间
+
+    private TimeCounter timeCounter;// 当前计时器实例
+
+    public TimeCounter() {
+        timeCounter = this;
+    }
 
     /**
      * 启动计时器
      */
-    public static void start() {
-        timeLocal.set(System.nanoTime());
+    public TimeCounter start() {
+        time = System.nanoTime();
+        return timeCounter;
     }
 
     /**
@@ -21,24 +28,10 @@ public class TimeCounter {
      *
      * @return
      */
-    public static double counts() {
-        if (timeLocal.get() == null) {
+    public double counts() {
+        if (time == null) {
             throw new RuntimeException("请先启动计时方法:TimeCounter.start()");
         }
-        return (System.nanoTime() - timeLocal.get()) / 1e6d;
-    }
-
-    /**
-     * 停止
-     */
-    public static void stop() {
-        timeLocal.remove();
-    }
-
-    /**
-     * 清除计时
-     */
-    public static void clean() {
-        timeLocal.set(System.nanoTime());
+        return (System.nanoTime() - time) / 1e6d;
     }
 }
