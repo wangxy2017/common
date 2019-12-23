@@ -14,8 +14,8 @@ public class TimeCounterTest {
 
     @Test
     public void test() throws InterruptedException {
-        TimeCounter start = new TimeCounter().start();
+        TimeCounter.start();
         Thread.sleep(1000);
-        log.info("计时：{}", start.counts());
+        log.info("计时：{}", TimeCounter.counts());
     }
 }
