@@ -16,7 +16,9 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.StandardConstants;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -88,7 +90,7 @@ public class HttpUtils {
      * @throws IOException
      */
     private static String parseRes(HttpResponse response) throws IOException {
-        return EntityUtils.toString(response.getEntity());
+        return EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
     }
 
     /**
