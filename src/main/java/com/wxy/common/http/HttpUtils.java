@@ -5,6 +5,7 @@ import org.apache.commons.collections4.MapUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -16,7 +17,6 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.StandardConstants;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
@@ -40,6 +40,10 @@ public class HttpUtils {
         return http("get", url, null, headers, isHttps);
     }
 
+    public static String doDelete(String url, Map<String, String> headers, boolean isHttps) {
+        return http("delete", url, null, headers, isHttps);
+    }
+
     public static String doPost(String url, String body, Map<String, String> headers, boolean isHttps) {
         return http("post", url, body, headers, isHttps);
     }
@@ -48,7 +52,7 @@ public class HttpUtils {
                                Map<String, String> headers, boolean isHttps) {
         long start = System.currentTimeMillis();
         try {
-            log.info("请求方式 = {},请求地址 = {},body参数 = {},请求头 = {},https = {}", method, url, body, headers, isHttps);
+            log.info("请求入参：method = {},url = {},body = {},headers = {},isHttps = {}", method, url, body, headers, isHttps);
             HttpClient httpClient;
             if (isHttps) {
                 httpClient = createSSLClientDefault();
@@ -71,6 +75,14 @@ public class HttpUtils {
                     headers.forEach(get::setHeader);
                 }
                 HttpResponse response = httpClient.execute(get);
+                return parseRes(response);
+            } else if ("delete".equalsIgnoreCase(method)) {
+                HttpDelete delete = new HttpDelete(url);
+                delete.setConfig(requestConfig);
+                if (!MapUtils.isEmpty(headers)) {
+                    headers.forEach(delete::setHeader);
+                }
+                HttpResponse response = httpClient.execute(delete);
                 return parseRes(response);
             } else {
                 throw new RuntimeException("Unsupported request method");
